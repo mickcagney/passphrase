@@ -14,7 +14,7 @@ There are 4 available palettes, ranging from bright red to bright green, numbere
   </UL>
   The more increments; the more complex a password required to achieve a bright green background.<Br>
 <Br>
-<H3>Function 2) – Requiring complexity rules</H3>
+<H3>Function 2) – Enforcing complexity rules</H3>
 <Br>
 <I>This function will not allow completion without satisfying it’s requirements.</I><Br><Br>
 There are ten levels of conditions that can be required numbered from 0 – 9. 
