@@ -1,4 +1,5 @@
 # Passphrase
+<a href="https://mickcagney.com/Passphrase/passphrase.html">Live example </a><Br><Br>
 This is a small JS plugin that performs two entirely separate, customizable, functions on a password field. <Br>
 <Br>  
 <H3>Function 1) - Changes the background color based on the complexity of the current password.</H3>
