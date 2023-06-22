@@ -1,13 +1,98 @@
 <!DOCTYPE html>
 <Head></Head>
 <Body style="text-align:center; margin-left:100px;">
+<H1>Passphrase plugin</H1>
+<Br>
+<Div style="text-align:left;">
+<H2>Syntax</H2>
+  function(parameter1,parameter2,parameter3);
+<Br><Br>
+<H3>1st parameter</H3>
+A string; ElementID of input field to be monitored.<Br>
+<H3>2nd parameter</H3>
+A string; ElementID of field to display password tips.<Br>
+<H3>3rd parameter</H3>
+A 2 digit INT; greater than 09 & less than 50, these digits dictate which meter level will be used and which character combinations are 'required' to validate.<Br>
+The first digit (1-4) signifies the meter to use, the second digit (0-9) denotes the required complexity of the passphrase.
+<Br><Br>
+<Table border=1>
+<Tr><Td>1st digit</Td><Td>Meter level</Td><Td>2nd digit</Td><Td>Required Conditions</Td></Tr>
+<Tr><Td style="text-align:center;">1</Td><Td>Level 1</Td><Td style="text-align:center;">0</Td><Td>None</Td></Tr>
+<Tr><Td style="text-align:center;">2</Td><Td>Level 2</Td><Td style="text-align:center;">1</Td><Td>a</Td></Tr>
+<Tr><Td style="text-align:center;">3</Td><Td>Level 3</Td><Td style="text-align:center;">2</Td><Td>b</Td></Tr>
+<Tr><Td style="text-align:center;">4</Td><Td>Level 4</Td><Td style="text-align:center;">3</Td><Td>c</Td></Tr>
+<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">4</Td><Td>a+b</Td></Tr>
+<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">5</Td><Td>a+c</Td></Tr>
+<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">6</Td><Td>a+b+c</Td></Tr>
+<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">7</Td><Td>a+b+d</Td></Tr>
+<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">8</Td><Td>a+c+d</Td></Tr>
+<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">9</Td><Td>a+b+c+d</Td></Tr>
+</Table>
 
+<UL><B>Possible Conditions</B>
+<Li> a. More than 5 characters</Li>
+<Li> b. Mix of both uppercase and lowercase letters</Li>
+<Li> c. Numerical character</Li>
+<Li> d. Special character; $%^& etc.</Li>
+</UL>
+
+A 3rd parameter of value '27', will use meter level 2 and have requirements a, b & d, (more than 5 characters including upper and lower case letters and a special character).<Br>
+A 3rd parameter of value '40', will use meter level 4 but have no password requirements.
+<Br><Br>
+  <H2>Example</H2>
+
+  &lt;input type="password" id="passphrase" autocomplete="off" placeholder="Enter password..." value="" <mark>oninput="checkstr('passphrase','reqfield',42)"</mark>><Br>
+  <Br>
+  In this example 'passphrase' is the ID of the textarea containing the password and 'reqfield' is the ID of a DIV showing the error message below the password field. The final field with value '42' sets the Meter level (AKA the color scheme) to #4 and the password requirements to level #2.<Br>
+  <Br><img src="example.png" style="border: black solid 1px;">
+
+</Div>
+<Br><Br>
 <Table border=1><tbody style="Vertical-align:top;">
 
-<Tr><Td>Meter level 4</Td><Td>Meter level 3</Td><Td>Meter level 2</Td><Td>Meter level 1</Td></Tr>
+<Tr><Td>Meter level 1</Td><Td>Meter level 2</Td><Td>Meter level 3</Td><Td>Meter level 4</Td></Tr>
 
 <Tr style="text-align:left;">
+  <Td style="padding-right:10px;">
+    <Center><H3>Available conditions</H3></Center>
+  <UL>
+  <Li>> 3 characters<Br></Li>
+  <Li>> 5 characters<Br></Li>
+  <Li>Upper and lower case letters<Br></Li>
+  <Li>1 numerical character<Br></Li>
+  <Li>> 1 special characters<Br></Li></UL>
+  </Td>
+
 <Td style="padding-right:10px;">
+  <Center><H3>Available conditions</H3></Center>
+<UL>
+<Li>> 3 characters<Br></Li>
+<Li>> 5 characters<Br></Li>
+<Li>> 7 characters<Br></Li>
+<Li>> 9 characters<Br></Li>
+<Li>Upper and lower case letters<Br></Li>
+<Li>1 numerical character<Br></Li>
+<Li>> 1 numerical characters<Br></Li>
+<Li>> 1 special characters<Br></Li></UL>
+</Td>
+
+<Td style="padding-right:10px;">
+  <Center><H3>Available conditions</H3></Center>
+<UL>
+<Li>> 3 characters<Br></Li>
+<Li>> 5 characters<Br></Li>
+<Li>> 7 characters<Br></Li>
+<Li>> 9 characters<Br></Li>
+<Li>Upper and lower case letters<Br></Li>
+<Li>1 numerical character<Br></Li>
+<Li>> 1 numerical characters<Br></Li>
+<Li>1 special character<Br></Li>
+<Li>> 1 special characters<Br></Li>
+<Li>Last character is a letter<Br></Li></UL>
+</Td>
+
+<Td style="padding-right:10px;">
+  <Center><H3>Available conditions</H3></Center>
 <UL>
 <Li>> 3 characters<Br></Li>
 <Li>> 5 characters<Br></Li>
@@ -26,50 +111,20 @@
 <Li>Matrix</Li></UL>
 </Td>
 
-<Td style="padding-right:10px;">
-<UL>
-<Li>> 3 characters<Br></Li>
-<Li>> 5 characters<Br></Li>
-<Li>> 7 characters<Br></Li>
-<Li>> 9 characters<Br></Li>
-<Li>Upper and lower case letters<Br></Li>
-<Li>1 numerical character<Br></Li>
-<Li>> 1 numerical characters<Br></Li>
-<Li>1 special character<Br></Li>
-<Li>> 1 special characters<Br></Li>
-<Li>Last character is a letter<Br></Li></UL>
-</Td>
-
-
-<Td style="padding-right:10px;">
-<UL>
-<Li>> 3 characters<Br></Li>
-<Li>> 5 characters<Br></Li>
-<Li>> 7 characters<Br></Li>
-<Li>> 9 characters<Br></Li>
-<Li>Upper and lower case letters<Br></Li>
-<Li>1 numerical character<Br></Li>
-<Li>> 1 numerical characters<Br></Li>
-<Li>> 1 special characters<Br></Li></UL>
-</Td>
-
-<Td style="padding-right:10px;">
-<UL>
-<Li>> 3 characters<Br></Li>
-<Li>> 5 characters<Br></Li>
-<Li>Upper and lower case letters<Br></Li>
-<Li>1 numerical character<Br></Li>
-<Li>> 1 special characters<Br></Li></UL>
-</Td>
 
 </Tr><Tr>
 
-
-<Td>15 increments</Td><Td>10 increments</Td><Td>8 increments</Td><Td>5 increments</Td>
+<Td>5 increments</Td>
+  <Td>8 increments</Td>
+    <Td>10 increments</Td>
+      <Td>14 increments</Td>
 
 </Tr><Tr>
 
-<Td style="border:1px solid black;">Hex Interval:<Br>10EF00</Td><Td style="border:1px solid black;">Hex Interval:<Br>18E700</Td><Td style="border:1px solid black;">Hex Interval:<Br>1EE100</Td><Td style="border:1px solid black;">Hex Interval:<Br>32CD00<Br></Td>
+<Td style="border:1px solid black;">Hex Interval:<Br>32CD00<Br></Td>
+    <Td style="border:1px solid black;">Hex Interval:<Br>1EE100</Td>
+      <Td style="border:1px solid black;">Hex Interval:<Br>18E700</Td>
+        <Td style="border:1px solid black;">Hex Interval:<Br>10EF00</Td>
 
 </Tr>
 
@@ -77,99 +132,60 @@
 <Tr>
 
 <Td>
-<Table width=100%>
-<Tr><Td bgcolor="#FF0010">FF0010</Td></Tr>
-<Tr><Td bgcolor="#EE1110">EE1110</Td></Tr>
-<Tr><Td bgcolor="#DD2210">DD2210</Td></Tr>
-<Tr><Td bgcolor="#CC3310">CC3310</Td></Tr>
-<Tr><Td bgcolor="#BB4410">BB4410</Td></Tr>
-<Tr><Td bgcolor="#AA5510">AA5510</Td></Tr>
-<Tr><Td bgcolor="#996610">996610</Td></Tr>
-<Tr><Td bgcolor="#887710">887710</Td></Tr>
-<Tr><Td bgcolor="#778810">778810</Td></Tr>
-<Tr><Td bgcolor="#669910">669910</Td></Tr>
-<Tr><Td bgcolor="#55AA10">55AA10</Td></Tr>
-<Tr><Td bgcolor="#44BB10">44BB10</Td></Tr>
-<Tr><Td bgcolor="#33CC10">33CC10</Td></Tr>
-<Tr><Td bgcolor="#22DD10">22DD10</Td></Tr>
-<Tr><Td bgcolor="#11EE10">11EE10</Td></Tr>
-<Tr><Td bgcolor="#00FF10">00FF10</Td></Tr>
-</Table>
+  <Table width=100%>
+  <Tr bgcolor="#FF0010"><Td>FF0010</Td><Td>Password field empty</Td></Tr>
+  <Tr bgcolor="#CC331O"><Td>CC3310</Td><Td>1/5 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#996610"><Td>996610</Td><Td>2/5 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#669910"><Td>669910</Td><Td>3/5 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#33CC10"><Td>33CC10</Td><Td>4/5 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#00FF10"><Td>00FF10</Td><Td>All 5 conditions satisfied</Td></Tr>
+  </Table>
 </Td><Td>
-<Table width=100%>
-<Tr><Td bgcolor="#FF0510">FF0510</Td></Tr>
-<Tr><Td bgcolor="#E61E10">E61E10</Td></Tr>
-<Tr><Td bgcolor="#CD3710">CD3710</Td></Tr>
-<Tr><Td bgcolor="#B45010">B45010</Td></Tr>
-<Tr><Td bgcolor="#9B6910">9B6910</Td></Tr>
-<Tr><Td bgcolor="#828210">828210</Td></Tr>
-<Tr><Td bgcolor="#699B10">699B10</Td></Tr>
-<Tr><Td bgcolor="#50B410">50B410</Td></Tr>
-<Tr><Td bgcolor="#37CD10">37CD10</Td></Tr>
-<Tr><Td bgcolor="#1EE610">1EE610</Td></Tr>
-<Tr><Td bgcolor="#05FF10">05FF10</Td></Tr>
-</Table>
+  <Table width=100%>
+  <Tr bgcolor="#FF0710"><Td>FF0710</Td><Td>Password field empty</Td></Tr>
+  <Tr bgcolor="#E02610"><Td>E02610</Td><Td>1/8 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#C14510"><Td>C14510</Td><Td>2/8 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#A26410"><Td>A26410</Td><Td>3/8 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#838310"><Td>838310</Td><Td>4/8 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#64A210"><Td>64A210</Td><Td>5/8 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#45C110"><Td>45C110</Td><Td>6/8 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#26E010"><Td>26E010</Td><Td>7/8 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#07FF10"><Td>07FF10</Td><Td>All 8 conditions satisfied</Td></Tr>
+  </Table>
 </Td><Td>
-<Table width=100%>
-<Tr><Td bgcolor="#FF0710">FF0710</Td></Tr>
-<Tr><Td bgcolor="#E02610">E02610</Td></Tr>
-<Tr><Td bgcolor="#C14510">C14510</Td></Tr>
-<Tr><Td bgcolor="#A26410">A26410</Td></Tr>
-<Tr><Td bgcolor="#838310">838310</Td></Tr>
-<Tr><Td bgcolor="#64A210">64A210</Td></Tr>
-<Tr><Td bgcolor="#45C110">45C110</Td></Tr>
-<Tr><Td bgcolor="#26E010">26E010</Td></Tr>
-<Tr><Td bgcolor="#07FF10">07FF10</Td></Tr>
-</Table>
+  <Table width=100%>
+  <Tr bgcolor="#FF0510"><Td>FF0510</Td><Td>Password field empty</Td></Tr>
+  <Tr bgcolor="#E61E10"><Td>E61E10</Td><Td>1/10 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#CD3710"><Td>CD3710</Td><Td>2/10 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#B45010"><Td>B45010</Td><Td>3/10 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#9B6910"><Td>9B6910</Td><Td>4/10 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#828210"><Td>828210</Td><Td>5/10 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#699B10"><Td>699B10</Td><Td>6/10 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#50B410"><Td>50B410</Td><Td>7/10 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#37CD10"><Td>37CD10</Td><Td>8/10 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#1EE610"><Td>1EE610</Td><Td>9/10 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#05FF10"><Td>05FF10</Td><Td>All 10 conditions satisfied</Td></Tr>
+  </Table>
 </Td><Td>
-<Table width=100%">
-<Tr><Td bgcolor="#FF0010">FF0010</Td></Tr>
-<Tr><Td bgcolor="#CC331O">CC3310</Td></Tr>
-<Tr><Td bgcolor="#996610">996610</Td></Tr>
-<Tr><Td bgcolor="#669910">669910</Td></Tr>
-<Tr><Td bgcolor="#33CC10">33CC10</Td></Tr>
-<Tr><Td bgcolor="#00FF10">00FF10</Td></Tr>
-</Table>
+  <Table width=100%>
+  <Tr bgcolor="#FF0010"><Td>FF0010</Td><Td>Password field empty</Td></Tr>
+  <Tr bgcolor="#EE1110"><Td>EE1110</Td><Td>1/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#DD2210"><Td>DD2210</Td><Td>2/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#CC3310"><Td>CC3310</Td><Td>3/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#BB4410"><Td>BB4410</Td><Td>4/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#AA5510"><Td>AA5510</Td><Td>5/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#996610"><Td>996610</Td><Td>6/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#887710"><Td>887710</Td><Td>7/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#778810"><Td>778810</Td><Td>8/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#669910"><Td>669910</Td><Td>9/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#55AA10"><Td>55AA10</Td><Td>10/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#44BB10"><Td>44BB10</Td><Td>11/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#33CC10"><Td>33CC10</Td><Td>12/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#22DD10"><Td>22DD10</Td><Td>13/14 conditions satisfied</Td></Tr>
+  <Tr bgcolor="#11EE10"><Td>11EE10</Td><Td>All 14 conditions satisfied</Td></Tr>
+  </Table>
 </Td></Tr>
 </tbody></Table>
-
 <Br><Br><Br>
-<Div style="text-align:left;">
-<H2>Syntax</H2>
-function(parameter1,parameter2,parameter3);
-<Br><Br>
-<H3>1st parameter</H3>
-A string; ElementID of input field to be monitored.<Br>
-<H3>2nd parameter</H3>
-A string; ElementID of filed to display password tips.<Br>
-<H3>3rd parameter</H3>
-A 2 digit INT; greater than 09 & less than 50, these digits dictate which meter level will be used and which character combinations are 'required' to validate.
-<Br><Br>
-<Table border=1>
-<Tr><Td>1st digit</Td><Td>Meter level</Td><Td>2nd digit</Td><Td>Required Characters</Td></Tr> 
-<Tr><Td style="text-align:center;">1</Td><Td>Level 1</Td><Td style="text-align:center;">0</Td><Td>None</Td></Tr>
-<Tr><Td style="text-align:center;">2</Td><Td>Level 2</Td><Td style="text-align:center;">1</Td><Td>1</Td></Tr>
-<Tr><Td style="text-align:center;">3</Td><Td>Level 3</Td><Td style="text-align:center;">2</Td><Td>2</Td></Tr>
-<Tr><Td style="text-align:center;">4</Td><Td>Level 4</Td><Td style="text-align:center;">3</Td><Td>3</Td></Tr>
-<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">4</Td><Td>1+2</Td></Tr>
-<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">5</Td><Td>1+3</Td></Tr>
-<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">6</Td><Td>1+2+3</Td></Tr>
-<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">7</Td><Td>1+2+4</Td></Tr>
-<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">8</Td><Td>1+3+4</Td></Tr>
-<Tr><Td style="background-color:#d2d8da;"></Td><Td style="background-color:#d2d8da;"></Td><Td style="text-align:center;">9</Td><Td>1+2+3+4</Td></Tr>
-</Table>
-
-<OL>
-<Li> More than 5 characters</Li>
-<Li> A mix of both uppercase and lowercase letters</Li>
-<Li> A Numerical character</Li>
-<Li> A special character; $%^& etc.</Li>
-</OL>
-
-Parameter '27', will use meter level 2 and have requirements 1, 2 & 4, (more than 5 characters including upper and lower case letters and a special character).
-<Br><Br><Br>
-</Div>
-
-
 
 </Body></html>
